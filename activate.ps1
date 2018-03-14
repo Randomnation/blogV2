@@ -1,0 +1,1 @@
+C:\Users\kramm\Envs\blogV2\Scripts\activate.ps1
