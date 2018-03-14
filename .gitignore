@@ -9,6 +9,7 @@
 *.userosscache
 *.sln.docstates
 *.sqlite3
+activate.ps1
 migrations/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
