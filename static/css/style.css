@@ -2,4 +2,12 @@
 body {
     min-height: 75rem;
     padding-top: 4.5rem;
-  }
+}
+
+.custom {
+    color: red;
+}
+
+main[role=main] .card {
+    margin-bottom: 2em;
+}
