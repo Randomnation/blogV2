@@ -4,14 +4,16 @@
 
 
 {% block content %}
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <form action="{% url 'blog:post_new' %}" method="POST" class="post-form">{% csrf_token %}
-                {{ form.media }}
-                {{ form|crispy }}
-                <hr />
-                <button type="submit" class="save btn btn-default">Post</button>
-            </form>
+    <main role="main" class="container">
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'blog:post_new' %}" method="POST" class="post-form">{% csrf_token %}
+                    {{ form.media }}
+                    {{ form|crispy }}
+                    <hr />
+                    <button type="submit" class="save btn btn-dark">Post</button>
+                </form>
+            </div>
         </div>
-    </div>
+    </main>
 {% endblock %}

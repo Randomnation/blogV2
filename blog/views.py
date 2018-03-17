@@ -13,7 +13,7 @@ from django.contrib import messages
 def post_list(request):
     css1 = 'active'
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-    paginator = Paginator(posts, 5)
+    paginator = Paginator(posts, 2)
     page = request.GET.get('page')
     user = request.user
     cat_list_side = Categories.objects.all()

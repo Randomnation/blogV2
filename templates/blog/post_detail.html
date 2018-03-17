@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load comments %}
 
 {% block content %}
     <main role="main" class="container">
@@ -13,8 +14,32 @@
                 <hr style="width:75%;"/>
                 <p class="card-text"><i><small><b>Last Modified:</b> {{ post.modified|timesince }} ago</small></i></p>
                 <p class="card-text"><i><small><b>Published:</b> {{ post.created_date|timesince }} ago</small></i></p>
-
+                
+                <button type="button" class="btn btn-success" id="add_comment">Add Comment</button>
             </div>
         </div>
+        <div class="card" id="comment_form">
+            <div class="card-body">
+                <form action="{% url 'blog:post_detail' pk=post.pk %}" method="POST" class="post-form">{% csrf_token %}
+                    {{ form.media }}
+                    {{ form|crispy }}
+                    <button type="submit" class="save btn btn-dark">Comment</button>
+                </form>
+            </div>
+        </div>
+        {% for comment in post.comments.all %}
+            {% if comment.approved_comment %}
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title"><strong>{{ comment.author }}</strong></h5><span class="text-muted">{{ comment.created_date|timesince }} ago</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ comment.text|safe|linebreaks }}</p>
+                    </div>
+                </div>
+            {% endif %}
+        {% empty %}
+            <p>No Comments yet</p>
+        {% endfor %}
     </main>
 {% endblock %}

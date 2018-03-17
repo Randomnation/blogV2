@@ -11,7 +11,7 @@ class Categories(models.Model):
     slug = models.SlugField(unique=True)
     description = models.TextField(max_length=155)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):
@@ -24,6 +24,9 @@ class Categories(models.Model):
 class BlogType(models.Model):
     type_title = models.CharField(max_length=100, default='Default')
     description = models.TextField(max_length=155)
+
+    def __str__(self):
+        return self.type_title
 
 
 class Post(models.Model):
@@ -48,7 +51,7 @@ class Post(models.Model):
         self.published = True
         self.save()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):
