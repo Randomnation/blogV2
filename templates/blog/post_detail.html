@@ -16,6 +16,11 @@
                 <p class="card-text"><i><small><b>Published:</b> {{ post.created_date|timesince }} ago</small></i></p>
                 
                 <button type="button" class="btn btn-success" id="add_comment">Add Comment</button>
+                <a class="btn btn-info"
+                    href="{% url 'blog:post_edit' pk=post.pk %}"
+                    data-toggle="tooltip" data-placement="top" title="Edit Post">
+                    <i class="far fa-edit"></i>
+                </a>
             </div>
         </div>
         <div class="card" id="comment_form">

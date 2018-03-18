@@ -19,7 +19,7 @@ from blog import views
 
 urlpatterns = [
     path('', views.post_list, name='index'),
-    path('blog', include('blog.urls', namespace='blog')),
+    path('blog/', include('blog.urls', namespace='blog')),
     path('admin/', admin.site.urls),
     path('ckeditor', include('ckeditor_uploader.urls')),
     path('comments', include('django_comments.urls'))

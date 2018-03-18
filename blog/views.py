@@ -13,7 +13,7 @@ from django.contrib import messages
 def post_list(request):
     css1 = 'active'
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-    paginator = Paginator(posts, 2)
+    paginator = Paginator(posts, 5)
     page = request.GET.get('page')
     user = request.user
     cat_list_side = Categories.objects.all()
@@ -25,22 +25,6 @@ def post_list(request):
         posts = paginator.page(paginator.num_pages)
 
     return render(request, 'blog/index.html', locals())
-
-
-def post_detail(request, pk):
-    cat_list_side = Categories.objects.all()
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.approve()
-            comment.save()
-            return redirect('blog:post_detail', pk=post.pk)
-    else:
-        form = CommentForm()
-    return render(request, 'blog/post_detail.html', locals())
 
 
 def post_new(request):
@@ -59,3 +43,34 @@ def post_new(request):
         form = PostForm()
     return render(request, 'blog/post_create.html', locals())
 
+
+def post_detail(request, pk):
+    cat_list_side = Categories.objects.all()
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.approve()
+            comment.save()
+            return redirect('blog:post_detail', pk=post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'blog/post_detail.html', locals())
+    
+
+def post_edit(request, pk):
+    cat_list_side = Categories.objects.all()
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('blog:post_detail', pk=post.pk)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'blog/post_edit.html', locals())
