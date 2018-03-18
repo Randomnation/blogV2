@@ -10,14 +10,14 @@
                         {% if posts.has_previous %}
                             <li class="page-item">
                                 <a href="?page={{ posts.previous_page_number }}" class="page-link">
-                                    <span aria-hidden="true">&larr;</span> Newer
+                                    <i class="far fa-caret-square-left"></i> Newer
                                 </a>
                             </li>
                         {% endif %}
                         {% if posts.has_next %}
                             <li class="page-item">
-                                <a href="?page={{ posts.next_page_number }}" class="page-link">Older
-                                    <span aria-hidden="true">&rarr;</span>
+                                <a href="?page={{ posts.next_page_number }}" class="page-link">Older 
+                                    <i class="far fa-caret-square-right"></i>
                                 </a>
                             </li>
                         {% endif %}

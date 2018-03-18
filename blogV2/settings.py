@@ -32,6 +32,10 @@ ALLOWED_HOSTS = ['*']
 
 SITE_ID = 3
 
+RECAPTCHA_PUBLIC_KEY = '6LdN-AYUAAAAAChGKuW_jljlXBz0MoZ3ykcYxkF1'
+RECAPTCHA_PRIVATE_KEY = '6LdN-AYUAAAAAMLnxsQmNNxIv4pVCfbSgb_Bvpgx'
+NOCAPTCHA = True
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Application definition

@@ -1,5 +1,5 @@
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect, reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.utils import timezone
 from .models import Post, Comment, User, Categories, BlogType
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -11,7 +11,7 @@ from django.contrib import messages
 
 
 def post_list(request):
-    css1 = 'active'
+    # css1 = 'active'
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     paginator = Paginator(posts, 5)
     page = request.GET.get('page')
@@ -28,8 +28,8 @@ def post_list(request):
 
 
 def post_new(request):
-    css1 = 'active'
-    cat_list_side = Categories.objects.all()
+    # css1 = 'active'
+    # cat_list_side = Categories.objects.all()
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -45,8 +45,11 @@ def post_new(request):
 
 
 def post_detail(request, pk):
-    cat_list_side = Categories.objects.all()
-    post = get_object_or_404(Post, pk=pk)
+    # cat_list_side = Categories.objects.all()
+    try:
+        post = Post.objects.get(pk=pk)
+    except Post.DoesNotExist:
+        raise Http404("Unable to load post id: " + post.id)
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -58,11 +61,14 @@ def post_detail(request, pk):
     else:
         form = CommentForm()
     return render(request, 'blog/post_detail.html', locals())
-    
+
 
 def post_edit(request, pk):
-    cat_list_side = Categories.objects.all()
-    post = get_object_or_404(Post, pk=pk)
+    # cat_list_side = Categories.objects.all()
+    try:
+        post = Post.objects.get(pk=pk)
+    except Post.DoesNotExist:
+        raise Http404("Unable to load post id: " + post.id)
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():

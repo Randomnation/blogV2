@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from captcha.fields import ReCaptchaField
 from .models import EmailVerification
 from django.core.mail import send_mail
-from django.core.urlresolvers import reverse
+from django.shortcuts import reverse
 from django.conf import settings
 
 
