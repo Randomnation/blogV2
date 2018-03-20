@@ -25,7 +25,7 @@
         </div>
         <div class="card" id="comment_form">
             <div class="card-body">
-                <form action="{% url 'blog:post_detail' pk=post.pk %}" method="POST" class="post-form">{% csrf_token %}
+                <form action="{% url 'blog:post_detail' pk=post.pk pk=post.pk %}" method="POST" class="post-form">{% csrf_token %}
                     {{ form.media }}
                     {{ form|crispy }}
                     <button type="submit" class="save btn btn-dark">Comment</button>

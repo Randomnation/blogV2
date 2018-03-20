@@ -4,9 +4,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+    <meta name="description" content="Blog V2">
+    <meta name="author" content="Jason">
+    <link rel="icon" href="#">
 
     <title>Portfolio</title>
 
@@ -15,6 +15,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
   </head>
 
   <body>
@@ -29,17 +30,30 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'blog:index' %}">Blog <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'blog:post_new' %}"><i class="far fa-edit"></i> Add New Post</a>
-            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog:post_new' %}"><i class="far fa-edit"></i> Add New Post</a>
+                </li>
+            {% endif %}
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'account:login' %}">Login </a>
-            </li>
-            <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
-            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:logout' %}">Logout </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile:user_profile' pk=user.id %}">Profile </a>
+                </li>
+                {% if user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                    </li>
+                {% endif %}
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:login' %}">Login/Register </a>
+                </li>
+            {% endif %}
         </ul>
         <form class="form-inline mt-2 mt-md-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">

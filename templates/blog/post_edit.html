@@ -7,11 +7,11 @@
     <main role="main" class="container">
         <div class="card">
             <div class="card-body">
-                <form action="{% url 'blog:post_edit' %}" method="POST" class="post-form">{% csrf_token %}
+                <form action="{% url 'blog:post_edit' pk=post.pk %}" method="POST" class="post-form">{% csrf_token %}
                     {{ form.media }}
                     {{ form|crispy }}
                     <hr />
-                    <button type="submit" class="save btn btn-dark">Post</button>
+                    <button type="submit" class="save btn btn-dark">Update</button>
                 </form>
             </div>
         </div>

@@ -63,6 +63,7 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', locals())
 
 
+@login_required
 def post_edit(request, pk):
     # cat_list_side = Categories.objects.all()
     try:

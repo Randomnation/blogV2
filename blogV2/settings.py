@@ -51,10 +51,12 @@ INSTALLED_APPS = [
     'django_comments',
     'django.contrib.sites',
     'blog',
+    'profiles',
     'ckeditor',
     'ckeditor_uploader',
     'account',
-    'crispy_forms'
+    'crispy_forms',
+    'captcha'
 
 ]
 
@@ -101,6 +103,16 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'blog',
+#         'USER': 'jhanson',
+#         'PASSWORD': 'random2000',
+#         'HOST': 'localhost',
+#         'PORT': '3306'
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
