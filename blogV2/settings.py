@@ -29,7 +29,7 @@ SECRET_KEY = '))e93@u*w*#!j&m%=xeu5kfz-ys1$(eg(^qv^!z9p&m*&n*2$^'
 # DEBUG = True
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://randomnation.herokuapp.com/']
 
 SITE_ID = 3
 
