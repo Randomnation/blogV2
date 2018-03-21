@@ -27,7 +27,7 @@ SECRET_KEY = '))e93@u*w*#!j&m%=xeu5kfz-ys1$(eg(^qv^!z9p&m*&n*2$^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
