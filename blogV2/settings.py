@@ -60,7 +60,7 @@ INSTALLED_APPS = [
 
 ]
 
-COMMENTS_APP = 'threadedcomments'
+# COMMENTS_APP = 'threadedcomments'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
