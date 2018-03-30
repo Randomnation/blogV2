@@ -12,6 +12,19 @@ main[role=main] .card {
     margin-bottom: 2em;
 }
 
-#comment_form {
-    display: none;
+#comments {
+    border: none;
+    padding-bottom: 0 !important;
+}
+
+#comments > .card-body {
+    padding-bottom: 0 !important;
+}
+
+.navRight {
+    margin-right: 10em;
+}
+
+.list-no-style {
+    list-style: none;
 }

@@ -31,29 +31,37 @@
                 <a class="nav-link" href="{% url 'blog:index' %}">Blog <span class="sr-only">(current)</span></a>
             </li>
             {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dataAnalysis:comment_heatmap' %}">
+                            <i class="fas fa-chart-bar"></i> Data Analysis <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'blog:post_new' %}"><i class="far fa-edit"></i> Add New Post</a>
                 </li>
+                
             {% endif %}
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account:logout' %}">Logout </a>
+                    <a class="nav-link" href="{% url 'account:logout' %}">Logout</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'profile:user_profile' pk=user.id %}">Profile </a>
+                    <a class="nav-link" href="{% url 'profile:user_profile' pk=user.id %}">Profile</a>
                 </li>
                 {% if user.is_superuser %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                            <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
                     </li>
                 {% endif %}
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account:login' %}">Login/Register </a>
+                    <a class="nav-link" href="{% url 'account:login' %}">Login/Register</a>
                 </li>
-            {% endif %}
+            {% endif %}            
         </ul>
         <form class="form-inline mt-2 mt-md-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -80,5 +88,6 @@
     <script src="{% static 'js/fontawesome-all.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
+    <script id="dsq-count-scr" src="//randomnation-1.disqus.com/count.js" async></script>
   </body>
 </html>

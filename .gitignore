@@ -10,6 +10,7 @@
 *.sln.docstates
 *.sqlite3
 activate.ps1
+clean_model_app_remove.py
 migrations/
 
 # User-specific files (MonoDevelop/Xamarin Studio)

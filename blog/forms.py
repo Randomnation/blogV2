@@ -1,7 +1,10 @@
 from django import forms
-from .models import Post, Comment, Categories
+from .models import Post, Categories
 from ckeditor.widgets import CKEditorWidget
 from functools import partial
+from crispy_forms.helper import FormHelper, Layout
+from crispy_forms.layout import Field, Submit
+
 
 DateInput = partial(forms.DateInput, {'id': 'datepicker'})
 
@@ -12,14 +15,6 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('title', 'type', 'categories', 'text',)
-
-
-class CommentForm(forms.ModelForm):
-    text = forms.CharField(widget=CKEditorWidget())
-
-    class Meta:
-        model = Comment
-        fields = ('author', 'text')
 
 
 class CategoriesForm(forms.ModelForm):

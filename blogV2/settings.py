@@ -26,8 +26,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '))e93@u*w*#!j&m%=xeu5kfz-ys1$(eg(^qv^!z9p&m*&n*2$^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = ['randomnation.herokuapp.com']
 
@@ -48,19 +48,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'django_comments',
     'django.contrib.sites',
-    'blog',
+    'sslserver',
+    'account',
     'profiles',
+    'blog',
+    'dataAnalysis',
     'ckeditor',
     'ckeditor_uploader',
-    'account',
     'crispy_forms',
-    'captcha'
+    'captcha',
 
 ]
-
-# COMMENTS_APP = 'threadedcomments'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -96,29 +97,24 @@ WSGI_APPLICATION = 'blogV2.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+
 # DATABASES = {
-#     'default': dj_database_url.config(
-#         default=config('DATABASE_URL')
-#     )
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
 # }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blogV2',
+        'USER': 'jason',
+        'PASSWORD': 'random2000',
+        'HOST': 'localhost',
+        'PORT': '5433',
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'blog',
-#         'USER': 'jhanson',
-#         'PASSWORD': 'random2000',
-#         'HOST': 'localhost',
-#         'PORT': '3306'
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

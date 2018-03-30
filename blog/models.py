@@ -4,6 +4,15 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from ckeditor.fields import RichTextField
+# from mptt.models import MPTTModel, TreeForeignKey
+
+
+# class Comment(MPTTModel):
+#     name = models.CharField(max_length=50, unique=True)
+#     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
+
+#     class MPTTMeta:
+#         order_insertion_by = ['name']  
 
 
 class Categories(models.Model):
@@ -56,21 +65,3 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post', args=[str(self.slug)])
-
-
-class Comment(models.Model):
-    post = models.ForeignKey('blog.Post', related_name='comments', on_delete=models.CASCADE)
-    author = models.CharField(max_length=200)
-    text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
-    approved_comment = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ['-created_date']
-
-    def approve(self):
-        self.approved_comment = True
-        self.save()
-
-    def __str__(self):
-        return self.text

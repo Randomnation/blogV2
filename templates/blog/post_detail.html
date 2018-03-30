@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% load comments %}
+
 
 {% block content %}
     <main role="main" class="container">
@@ -14,37 +13,47 @@
                 <hr style="width:75%;"/>
                 <p class="card-text"><i><small><b>Last Modified:</b> {{ post.modified|timesince }} ago</small></i></p>
                 <p class="card-text"><i><small><b>Published:</b> {{ post.created_date|timesince }} ago</small></i></p>
-                
-                <button type="button" class="btn btn-success" id="add_comment">Add Comment</button>
-                <a class="btn btn-info"
-                    href="{% url 'blog:post_edit' pk=post.pk %}"
-                    data-toggle="tooltip" data-placement="top" title="Edit Post">
-                    <i class="far fa-edit"></i>
-                </a>
+                <br />
+                <!-- <button type="button" class="btn btn-success" id="add_comment">
+                    Show Comments <i class="fas fa-angle-down"></i>
+                </button> -->
+                {% if user.is_authenticated %}
+                    {% if user == post.author %}
+                        <a class="btn btn-info"
+                            href="{% url 'blog:post_edit' pk=post.pk %}"
+                            data-toggle="tooltip" data-placement="top" title="Edit Post">
+                            <i class="far fa-edit"></i>
+                        </a>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
-        <div class="card" id="comment_form">
+
+        <div class="card" id="comments">
             <div class="card-body">
-                <form action="{% url 'blog:post_detail' pk=post.pk pk=post.pk %}" method="POST" class="post-form">{% csrf_token %}
-                    {{ form.media }}
-                    {{ form|crispy }}
-                    <button type="submit" class="save btn btn-dark">Comment</button>
-                </form>
+                <div id="disqus_thread"></div>
+                <script>
+                
+                /**
+                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+                /**/
+                var disqus_config = function () {
+                this.page.url ="{{ request.build_absolute_uri }}";  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = "{{ post.id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                };
+                
+                (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                s.src = 'https://randomnation-1.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <!-- <div class="fb-comments" data-href="{{ post.get_absolute_uri }}" data-numposts="5" data-width="100%" data-colorscheme="dark"></div> -->
             </div>
         </div>
-        {% for comment in post.comments.all %}
-            {% if comment.approved_comment %}
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title"><strong>{{ comment.author }}</strong></h5><span class="text-muted">{{ comment.created_date|timesince }} ago</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">{{ comment.text|safe|linebreaks }}</p>
-                    </div>
-                </div>
-            {% endif %}
-        {% empty %}
-            <p>No Comments yet</p>
-        {% endfor %}
+        
     </main>
 {% endblock %}

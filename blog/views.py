@@ -1,17 +1,17 @@
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect, reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.utils import timezone
-from .models import Post, Comment, User, Categories, BlogType
+from .models import Post, User, Categories, BlogType
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext, loader
-from .forms import PostForm, CommentForm, CategoriesForm
+from .forms import PostForm, CategoriesForm
+
 from django.contrib import messages
 
 
 def post_list(request):
-    # css1 = 'active'
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     paginator = Paginator(posts, 5)
     page = request.GET.get('page')
@@ -27,9 +27,8 @@ def post_list(request):
     return render(request, 'blog/index.html', locals())
 
 
+@login_required
 def post_new(request):
-    # css1 = 'active'
-    # cat_list_side = Categories.objects.all()
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -45,27 +44,16 @@ def post_new(request):
 
 
 def post_detail(request, pk):
-    # cat_list_side = Categories.objects.all()
     try:
         post = Post.objects.get(pk=pk)
     except Post.DoesNotExist:
         raise Http404("Unable to load post id: " + post.id)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.approve()
-            comment.save()
-            return redirect('blog:post_detail', pk=post.pk)
-    else:
-        form = CommentForm()
+
     return render(request, 'blog/post_detail.html', locals())
 
 
 @login_required
 def post_edit(request, pk):
-    # cat_list_side = Categories.objects.all()
     try:
         post = Post.objects.get(pk=pk)
     except Post.DoesNotExist:
